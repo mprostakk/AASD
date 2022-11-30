@@ -2,7 +2,10 @@ import time
 import asyncio
 from spade.agent import Agent
 from spade.behaviour import CyclicBehaviour
+from dotenv import load_dotenv
+import os 
 
+load_dotenv()
 class DummyAgent(Agent):
     class MyBehav(CyclicBehaviour):
         async def on_start(self):
@@ -18,16 +21,3 @@ class DummyAgent(Agent):
         print("Agent starting . . .")
         b = self.MyBehav()
         self.add_behaviour(b)
-
-if __name__ == "__main__":
-    dummy = DummyAgent("admin@localhost", "passw0rd")
-    future = dummy.start()
-    future.result()
-
-    print("Wait until user interrupts with ctrl+C")
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        print("Stopping...")
-    dummy.stop()
