@@ -1,7 +1,7 @@
 import os
+from functools import lru_cache
 
 import websocket
-from functools import lru_cache
 
 
 @lru_cache()
