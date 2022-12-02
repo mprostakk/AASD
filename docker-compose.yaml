@@ -2,24 +2,21 @@ version: "3.3"
 services:
   xmpp:
     image: ejabberd/ecs
-    ports:
-      - "5222:5222"
+    platform: "linux/amd64"
     environment:
-     - CTL_ON_CREATE=register admin localhost passw0rd
-    networks:
-      - agents_net
+      - CTL_ON_CREATE=register admin localhost asd
+      - CTL_ON_START=registered_users localhost ;
+                     status
+    network_mode: host
+
   agent_1:
     build: .
-    command: python agent_test/run.py
-      - xmpp-server
-    networks:
-      - agents_net
+    command: python agent_1/run.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - XMPP_SERVER_URL=localhost
+      - XMPP_SERVER_HOST=admin
+      - XMPP_SERVER_PASSWORD=asd
+    network_mode: host
     depends_on:
       - xmpp
-
-networks:
-  agents_net:
-  
-  # agent_2:
-  #  build: .
-  #  command: python agent_test_2/run.py

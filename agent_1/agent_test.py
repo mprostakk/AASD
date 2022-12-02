@@ -1,16 +1,14 @@
-import time
 import asyncio
+
 from spade.agent import Agent
 from spade.behaviour import CyclicBehaviour
-from dotenv import load_dotenv
-import os 
 
-load_dotenv()
+
 class DummyAgent(Agent):
-    class MyBehav(CyclicBehaviour):
+    class MyBehave(CyclicBehaviour):
         async def on_start(self):
             print("Starting behaviour . . .")
-            self.counter = 0
+            self.counter = 0  # noqa
 
         async def run(self):
             print("Counter: {}".format(self.counter))
@@ -19,5 +17,5 @@ class DummyAgent(Agent):
 
     async def setup(self):
         print("Agent starting . . .")
-        b = self.MyBehav()
+        b = self.MyBehave()
         self.add_behaviour(b)
