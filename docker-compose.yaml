@@ -33,6 +33,8 @@ services:
       - XMPP_SERVER_URL=localhost
       - XMPP_SERVER_HOST=admin
       - XMPP_SERVER_PASSWORD=asd
+      - WS_URL=127.0.0.1
+      - WS_PORT=9007
     network_mode: host
     depends_on:
       - xmpp

@@ -3,11 +3,11 @@ from websocket_server import WebsocketServer
 
 
 def new_client(client, server):
-    server.send_message_to_all("Hey all, a new client has joined us")
+    pass
 
 
 def client_receive(client, server, msg):
-    server.send_message_to_all("hello")
+    server.send_message_to_all(msg)
 
 
 server = WebsocketServer(host="0.0.0.0", port=9007, loglevel=logging.INFO)
