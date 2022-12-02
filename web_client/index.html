@@ -1,0 +1,17 @@
+<title>Client</title>
+
+<style>
+</style>
+
+<h1>
+    Client
+</h1>
+<div id="rows"></div>
+
+<script type="text/javascript">
+  const ws = new WebSocket('ws://127.0.0.1:9007');
+
+  ws.onmessage = ({data}) => {
+    console.log(data)
+  };
+</script>

@@ -8,6 +8,22 @@ services:
       - CTL_ON_START=registered_users localhost ;
                      status
     network_mode: host
+  server_ws:
+    build: .
+    command: python server_ws/run.py
+    ports:
+      - 9007:9007
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  web_client:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./web_client:/usr/share/nginx/html
 
   agent_1:
     build: .
