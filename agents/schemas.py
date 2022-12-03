@@ -1,3 +1,4 @@
+import random
 from enum import Enum
 from uuid import UUID
 
@@ -32,6 +33,9 @@ class Direction(Enum):
             return Position(x=-3, y=0)
 
     def get_new_direction(self) -> "Direction":
+        return random.choice(list(Direction))
+
+    def get_clockwise_direction(self) -> "Direction":
         if self == self.UP:
             return self.RIGHT
         elif self == self.RIGHT:

@@ -24,6 +24,7 @@ class AgentBaseBehaviour(CyclicBehaviour):
 
     async def send_state(self):
         get_ws_connection().send(self.state.json())
+        get_ws_connection().recv()
 
     async def drive_to(self, destination: Position):
         positions = drive_positions(self.state.position, destination)
@@ -46,4 +47,4 @@ class AgentBaseBehaviour(CyclicBehaviour):
             self.state.direction = self.state.direction.get_new_direction()
 
     async def check_if_direction_should_be_changed(self) -> bool:
-        return random.random() < 0.001
+        return random.random() < 0.003

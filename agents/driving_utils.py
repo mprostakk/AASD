@@ -7,7 +7,7 @@ from schemas import Position
 
 def drive_positions(source: Position, destination: Position) -> List[Position]:
     length = sqrt(abs(source.x - destination.x) + abs(source.y - destination.y))
-    length = int(length) * 5
+    length = int(length) * 7
 
     positions_x = [int(x) for x in np.linspace(source.x, destination.x, num=length)]
     positions_y = [int(y) for y in np.linspace(source.y, destination.y, num=length)]

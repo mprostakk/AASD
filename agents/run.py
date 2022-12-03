@@ -22,7 +22,7 @@ def create_agents() -> List[Agent]:
         agents.append(GuardAgent(xmpp_server_url, xmpp_server_password))
 
     for i in range(int(os.environ.get("AGENT_GUIDE_NUMBER", 0))):
-        xmpp_server_url = f"G{i+1}@{os.environ['XMPP_SERVER_URL']}"
+        xmpp_server_url = f"k{i+1}@{os.environ['XMPP_SERVER_URL']}"
         agents.append(GuideAgent(xmpp_server_url, xmpp_server_password))
 
     return agents

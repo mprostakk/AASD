@@ -10,6 +10,8 @@ services:
         register c1 localhost asd ; 
         register c2 localhost asd ; 
         register c3 localhost asd ;
+        register k1 localhost asd ;
+        register k2 localhost asd ;
 
       - CTL_ON_START=registered_users localhost ;
                      status
@@ -43,7 +45,7 @@ services:
       - WS_PORT=9007
       - AGENT_CLEANER_NUMBER=3
       - AGENT_GUARD_NUMBER=2
-      - AGENT_GUIDE_NUMBER=0
+      - AGENT_GUIDE_NUMBER=1
     network_mode: host
     depends_on:
       - xmpp

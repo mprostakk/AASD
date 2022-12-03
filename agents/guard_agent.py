@@ -23,7 +23,7 @@ class GuardAgent(Agent):
         async def on_start(self) -> None:
             self.state = GuardAgentState(
                 id=self.agent_id,
-                position=Position(x=400, y=400),
+                position=Position(x=random.randint(100, 700), y=random.randint(100, 700)),
                 type=AgentEnum.GUARD,
                 direction=random.choice(list(Direction)),
             )

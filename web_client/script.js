@@ -31,6 +31,22 @@ function cleanerAgentStateToColor(state) {
     }
  }
 
+  function guideAgentStateToColor(state) {
+    if (state == "WAITING") {
+        return [255, 0, 255];
+    }
+    else if (state == "DRIVING_TO_SOURCE") {
+        return [120, 255, 120];
+    }
+    else if (state == "GUIDING_TO_DESTINATION") {
+        return [255, 0, 0];
+    }
+    else {
+        return [100, 100, 100];
+    }
+ }
+
+
 function setup() {
     createCanvas(windowWidth, windowHeight - 100);
 }
@@ -55,6 +71,12 @@ function draw() {
             stroke(color[0], color[1], color[2]);
             fill(color[0], color[1], color[2]);
             rect(x - 15, y - 15, 30, 30);
+        }
+        else if (agentType == "GUIDE") {
+            const color = guideAgentStateToColor(state);
+            stroke(color[0], color[1], color[2]);
+            fill(color[0], color[1], color[2]);
+            circle(x, y, 30);
         }
 
         strokeWeight(0);
