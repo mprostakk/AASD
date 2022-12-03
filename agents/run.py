@@ -1,36 +1,35 @@
 import os
 import time
+from typing import List
 
 from cleaner_agent import CleanerAgent
 from guard_agent import GuardAgent
 from guide_agent import GuideAgent
+from spade.agent import Agent
 from ws_connection import get_ws_connection
 
 
-def create_agent():
+def create_agents() -> List[Agent]:
     xmpp_server_url = f"{os.environ['XMPP_SERVER_HOST']}@{os.environ['XMPP_SERVER_URL']}"
     xmpp_server_password = os.environ["XMPP_SERVER_PASSWORD"]
 
-    agent_type = os.environ["AGENT_TYPE"]
+    agents = []
 
-    if agent_type == "CLEANER":
-        agent = CleanerAgent(xmpp_server_url, xmpp_server_password)
-    elif agent_type == "GUARD":
-        agent = GuardAgent(xmpp_server_url, xmpp_server_password)
-    elif agent_type == "GUIDE":
-        agent = GuideAgent(xmpp_server_url, xmpp_server_password)
-    else:
-        raise NotImplementedError
+    for i in range(int(os.environ.get("AGENT_CLEANER_NUMBER", 0))):
+        agents.append(CleanerAgent(xmpp_server_url, xmpp_server_password))
 
-    return agent
+    for i in range(int(os.environ.get("AGENT_GUARD_NUMBER", 0))):
+        agents.append(GuardAgent(xmpp_server_url, xmpp_server_password))
+
+    for i in range(int(os.environ.get("AGENT_GUIDE_NUMBER", 0))):
+        agents.append(GuideAgent(xmpp_server_url, xmpp_server_password))
+
+    return agents
 
 
 def main():
-    agents = []
-    agent_number = int(os.environ["AGENT_NUMBER"])
-    for x in range(agent_number):
-        agent = create_agent()
-        agents.append(agent)
+    agents = create_agents()
+    for agent in agents:
         future = agent.start()
         future.result()
 

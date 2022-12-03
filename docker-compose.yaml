@@ -35,8 +35,9 @@ services:
       - XMPP_SERVER_PASSWORD=asd
       - WS_URL=127.0.0.1
       - WS_PORT=9007
-      - AGENT_TYPE=CLEANER
-      - AGENT_NUMBER=2
+      - AGENT_CLEANER_NUMBER=3
+      - AGENT_GUARD_NUMBER=2
+      - AGENT_GUIDE_NUMBER=0
     network_mode: host
     depends_on:
       - xmpp
