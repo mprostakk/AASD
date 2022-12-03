@@ -4,7 +4,13 @@ services:
     image: ejabberd/ecs
     platform: "linux/amd64"
     environment:
-      - CTL_ON_CREATE=register admin localhost asd
+      - CTL_ON_CREATE=register admin localhost asd ; 
+        register g1 localhost asd ; 
+        register g2 localhost asd ; 
+        register c1 localhost asd ; 
+        register c2 localhost asd ; 
+        register c3 localhost asd ;
+
       - CTL_ON_START=registered_users localhost ;
                      status
     network_mode: host

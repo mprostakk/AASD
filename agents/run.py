@@ -10,18 +10,19 @@ from ws_connection import get_ws_connection
 
 
 def create_agents() -> List[Agent]:
-    xmpp_server_url = f"{os.environ['XMPP_SERVER_HOST']}@{os.environ['XMPP_SERVER_URL']}"
     xmpp_server_password = os.environ["XMPP_SERVER_PASSWORD"]
-
     agents = []
 
     for i in range(int(os.environ.get("AGENT_CLEANER_NUMBER", 0))):
+        xmpp_server_url = f"c{i+1}@{os.environ['XMPP_SERVER_URL']}"
         agents.append(CleanerAgent(xmpp_server_url, xmpp_server_password))
 
     for i in range(int(os.environ.get("AGENT_GUARD_NUMBER", 0))):
+        xmpp_server_url = f"g{i+1}@{os.environ['XMPP_SERVER_URL']}"
         agents.append(GuardAgent(xmpp_server_url, xmpp_server_password))
 
     for i in range(int(os.environ.get("AGENT_GUIDE_NUMBER", 0))):
+        xmpp_server_url = f"G{i+1}@{os.environ['XMPP_SERVER_URL']}"
         agents.append(GuideAgent(xmpp_server_url, xmpp_server_password))
 
     return agents

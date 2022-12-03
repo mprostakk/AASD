@@ -22,6 +22,15 @@ function cleanerAgentStateToColor(state) {
     }
  }
 
+ function guardAgentStateToColor(state) {
+    if (state == "PATROL") {
+        return [0, 255, 0];
+    }
+    else {
+        return [100, 100, 100]
+    }
+ }
+
 function setup() {
     createCanvas(windowWidth, windowHeight - 100);
 }
@@ -35,10 +44,18 @@ function draw() {
         const agentType = agentMap[key].type;
 
         strokeWeight(2);
-        const color = cleanerAgentStateToColor(state);
-        stroke(color[0], color[1], color[2]);
-        fill(color[0], color[1], color[2])
-        circle(x, y, 30);
+        if (agentType == "CLEANER") {
+            const color = cleanerAgentStateToColor(state);
+            stroke(color[0], color[1], color[2]);
+            fill(color[0], color[1], color[2]);
+            circle(x, y, 30);
+        }
+        else if (agentType == "GUARD") {
+            const color = guardAgentStateToColor(state);
+            stroke(color[0], color[1], color[2]);
+            fill(color[0], color[1], color[2]);
+            rect(x - 15, y - 15, 30, 30);
+        }
 
         strokeWeight(0);
         textSize(12);
