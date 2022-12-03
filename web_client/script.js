@@ -3,16 +3,15 @@ const ws = new WebSocket('ws://127.0.0.1:9007');
 var agentMap = {}
 
 ws.onmessage = ({data}) => {
-    console.log(data)
     var data = JSON.parse(data);
     agentMap[data.id] = data;
 };
 
 function cleanerAgentStateToColor(state) {
-    if (state == "CLEANING") {
+    if (state == "HANDLE_CLEAN") {
         return [0, 0, 255];
     }
-    else if (state == "FREE") {
+    else if (state == "PATROL") {
         return [0, 255, 0];
     }
     else if (state == "DRIVING_TO_DESTINATION") {
@@ -33,6 +32,7 @@ function draw() {
         const x = agentMap[key].position.x;
         const y = agentMap[key].position.y;
         const state = agentMap[key].state;
+        const agentType = agentMap[key].type;
 
         strokeWeight(2);
         const color = cleanerAgentStateToColor(state);
@@ -44,6 +44,7 @@ function draw() {
         textSize(12);
         stroke(255);
         fill(255)
-        text(state, x+25, y+8);
+        text("(" + agentType + ")", x+25, y-4);
+        text(state, x+25, y+10);
     }
 }

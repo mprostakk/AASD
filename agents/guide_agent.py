@@ -1,8 +1,7 @@
 from enum import Enum
 
-from spade.agent import Agent
-
 from schemas import AgentState
+from spade.agent import Agent
 
 
 class GuideAgentStateEnum(Enum):

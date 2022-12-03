@@ -1,9 +1,9 @@
 import os
 import time
 
-from guide_agent import GuideAgent
-from guard_agent import GuardAgent
 from cleaner_agent import CleanerAgent
+from guard_agent import GuardAgent
+from guide_agent import GuideAgent
 from ws_connection import get_ws_connection
 
 
@@ -11,7 +11,7 @@ def create_agent():
     xmpp_server_url = f"{os.environ['XMPP_SERVER_HOST']}@{os.environ['XMPP_SERVER_URL']}"
     xmpp_server_password = os.environ["XMPP_SERVER_PASSWORD"]
 
-    agent_type = os.environ['AGENT_TYPE']
+    agent_type = os.environ["AGENT_TYPE"]
 
     if agent_type == "CLEANER":
         agent = CleanerAgent(xmpp_server_url, xmpp_server_password)
@@ -27,7 +27,7 @@ def create_agent():
 
 def main():
     agents = []
-    agent_number = int(os.environ['AGENT_NUMBER'])
+    agent_number = int(os.environ["AGENT_NUMBER"])
     for x in range(agent_number):
         agent = create_agent()
         agents.append(agent)
