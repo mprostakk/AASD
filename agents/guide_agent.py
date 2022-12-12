@@ -2,6 +2,8 @@ import asyncio
 import random
 import uuid
 from enum import Enum
+import json
+from message_utils import receive
 
 from base_agent import AgentBaseBehaviour
 from schemas import AgentEnum, AgentState, Direction, Position
@@ -34,13 +36,27 @@ class GuideAgent(Agent):
             await self.patrol()
 
         async def patrol(self) -> None:
-            await self.send_state()
-            await asyncio.sleep(7)
-            await self.send_state()
+            await self.receive_loss_report()
 
             source_position = Position(x=random.randint(100, 700), y=random.randint(100, 700))
             destination_position = Position(x=random.randint(100, 700), y=random.randint(100, 700))
+            await self.guide(source_position, destination_position)
 
+        async def receive_loss_report(self):
+            msg_body = await receive(behaviour=self, message_type='REPORT_LOST', timeout=7)
+            if not msg_body: return
+
+            source_position = Position(
+                x=msg_body['payload']['source_position']['x'], 
+                y=msg_body['payload']['source_position']['y']
+            )
+            destination_position = Position(
+                x=msg_body['payload']['destination_position']['x'], 
+                y=msg_body['payload']['destination_position']['y']
+            )
+            await self.guide(source_position, destination_position)
+
+        async def guide(self, source_position: Position, destination_position: Position):
             await self.set_state(GuideAgentStateEnum.DRIVING_TO_SOURCE)
             await self.drive_to(source_position)
             await self.set_state(GuideAgentStateEnum.GUIDING_TO_DESTINATION)
