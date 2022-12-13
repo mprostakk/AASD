@@ -4,11 +4,11 @@ from uuid import UUID
 
 from driving_utils import drive_positions, is_position_on_board
 from schemas import Position
-from spade.behaviour import CyclicBehaviour
+from spade.behaviour import FSMBehaviour
 from ws_connection import get_ws_connection
 
 
-class AgentBaseBehaviour(CyclicBehaviour):
+class AgentBaseBehaviour(FSMBehaviour):
     def __init__(self, agent_id: UUID):
         super().__init__()
         self.agent_id = agent_id

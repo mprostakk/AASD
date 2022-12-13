@@ -24,13 +24,6 @@ class CleanerAgent(Agent):
     AGENT_NAME = "Cleaner"
 
     class CleanerBehaviour(AgentBaseBehaviour):
-        async def on_start(self) -> None:
-            self.state = CleanerAgentState(
-                id=self.agent_id,
-                position=Position(x=random.randint(100, 700), y=random.randint(100, 700)),
-                type=AgentEnum.CLEANER,
-                direction=random.choice(list(Direction)),
-            )
 
         async def run(self) -> None:
             await self.patrol()

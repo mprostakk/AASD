@@ -2,7 +2,7 @@ import os
 import time
 from typing import List
 
-from cleaner_agent import CleanerAgent
+from FSMcleaner_agent import CleanerAgent
 from guard_agent import GuardAgent
 from guide_agent import GuideAgent
 from spade.agent import Agent
