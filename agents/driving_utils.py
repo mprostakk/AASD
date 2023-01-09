@@ -3,6 +3,7 @@ from typing import List
 
 import numpy as np
 from schemas import Position
+from zones_const import STAFF_ZONE, PUBLIC_ZONE, SAFE_ZONE
 
 
 def drive_positions(source: Position, destination: Position) -> List[Position]:
@@ -15,8 +16,12 @@ def drive_positions(source: Position, destination: Position) -> List[Position]:
     return [Position(x=p[0], y=p[1]) for p in zip(positions_x, positions_y)]
 
 
-def is_position_on_board(position: Position):
-    if 10 < position.x < 1000 and 10 < position.y < 1000:
-        return True
+def is_allowed_position(position: Position, allowed_zones: List[str]) -> bool:
+    if 30 < position.x < 1200 and 30 < position.y < 1170:
+        return PUBLIC_ZONE in allowed_zones
+    elif 1200 < position.x < 2170 and 30 < position.y < 700:
+        return STAFF_ZONE in allowed_zones
+    elif 1200 < position.x < 2170 and 700 < position.y < 1170:
+        return SAFE_ZONE in allowed_zones
 
     return False

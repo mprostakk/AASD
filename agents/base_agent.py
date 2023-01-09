@@ -2,13 +2,16 @@ import asyncio
 import random
 from uuid import UUID
 
-from driving_utils import drive_positions, is_position_on_board
+from driving_utils import drive_positions, is_allowed_position
 from schemas import Position
 from spade.behaviour import CyclicBehaviour
 from ws_connection import get_ws_connection
+from zones_const import PUBLIC_ZONE
 
 
 class AgentBaseBehaviour(CyclicBehaviour):
+    access = None
+    
     def __init__(self, agent_id: UUID):
         super().__init__()
         self.agent_id = agent_id
@@ -38,11 +41,11 @@ class AgentBaseBehaviour(CyclicBehaviour):
             x=self.state.position.x + position_to_add.x,
             y=self.state.position.y + position_to_add.y,
         )
-        if is_position_on_board(new_position):
+        if is_allowed_position(new_position, self.access):
             await self.set_position(new_position)
 
-        if await self.check_if_direction_should_be_changed() or not is_position_on_board(
-            new_position
+        if await self.check_if_direction_should_be_changed() or not is_allowed_position(
+            new_position, self.access
         ):
             self.state.direction = self.state.direction.get_new_direction()
 
