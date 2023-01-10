@@ -2,12 +2,12 @@ import asyncio
 import random
 import uuid
 from enum import Enum
-import json
 from message_utils import receive
 
 from base_agent import AgentBaseBehaviour
 from schemas import AgentEnum, AgentState, Direction, Position
 from spade.agent import Agent
+from zones_const import STAFF_ZONE, PUBLIC_ZONE
 
 
 class CleanerAgentStateEnum(Enum):
@@ -22,8 +22,10 @@ class CleanerAgentState(AgentState):
 
 class CleanerAgent(Agent):
     AGENT_NAME = "Cleaner"
-
+    
     class CleanerBehaviour(AgentBaseBehaviour):
+        access = [PUBLIC_ZONE, STAFF_ZONE]
+
         async def on_start(self) -> None:
             self.state = CleanerAgentState(
                 id=self.agent_id,

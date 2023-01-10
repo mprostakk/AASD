@@ -48,11 +48,17 @@ function cleanerAgentStateToColor(state) {
 
 
 function setup() {
-    createCanvas(windowWidth, windowHeight - 100);
+    createCanvas(2200, 1200);
 }
 
 function draw() {
     background(51);
+    fill(color(42, 141, 184));
+    rect(0, 0, 1200, 1200);
+    fill(color(182, 191, 61));
+    rect(1200, 0, 1000, 700);
+    fill(color(168, 44, 44));
+    rect(1200, 700, 1000, 500);
     for (var key in agentMap){
         const x = agentMap[key].position.x;
         const y = agentMap[key].position.y;

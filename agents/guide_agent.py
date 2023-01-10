@@ -1,13 +1,14 @@
 import asyncio
+from os import access
 import random
 import uuid
 from enum import Enum
-import json
 from message_utils import receive
 
 from base_agent import AgentBaseBehaviour
 from schemas import AgentEnum, AgentState, Direction, Position
 from spade.agent import Agent
+from zones_const import PUBLIC_ZONE
 
 
 class GuideAgentStateEnum(Enum):
@@ -24,6 +25,8 @@ class GuideAgent(Agent):
     AGENT_NAME = "Guide"
 
     class GuideBehaviour(AgentBaseBehaviour):
+        access = [PUBLIC_ZONE]
+        
         async def on_start(self) -> None:
             self.state = GuideAgentState(
                 id=self.agent_id,
